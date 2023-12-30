@@ -1,17 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from "./store";
-import { GetSpecialistsData } from '../libs/store/models/getSpecialistList.dto';
+import { ISpecialist } from '../libs/store/models/getSpecialistList.dto';
 
 interface SpecialistState {
-    data: GetSpecialistsData;
+    data: ISpecialist[] | [];
 }
 
 const initialState: SpecialistState = {
-    data: {
-        items: [],
-        totalCount: 0
-    }
+    data: [],
 }
 
 export const SPECIALISTS_SLICE_KEY = "specialists";
@@ -20,11 +17,9 @@ export const specialistSlice = createSlice({
     name: SPECIALISTS_SLICE_KEY,
     initialState,
     reducers: {
-        setAllUsers(state, {payload: data}: PayloadAction<GetSpecialistsData>) {
-            state.data = data;
-            return {
-                ...state
-            }
+        setAllUsers(state, {payload: data}: PayloadAction<ISpecialist[]>) {
+            state.data = [...state.data, ...data];   
+            return state;
         }
     }
 });

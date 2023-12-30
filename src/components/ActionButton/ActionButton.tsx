@@ -4,12 +4,19 @@ import styles from './ActionButton.module.scss';
 
 interface ActionButtonProps {
     text: string;
+    onClick: () => void;
 }
 
 export const ActionButton: FC<ActionButtonProps> = (props): JSX.Element => {
-    const { text } = props;
+    const { text, onClick } = props;
 
     return (
-        <Button className={styles.actionButton} variant="contained">{text}</Button>
+        <Button
+            className={styles.actionButton}
+            variant="contained"
+            onClick={onClick}
+        >
+            {text}
+        </Button>
     )
 }

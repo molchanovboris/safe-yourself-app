@@ -1,5 +1,12 @@
-.cardList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 21px;
+.specialistListContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+
+    .cardList {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 21px;
+    }
 }
