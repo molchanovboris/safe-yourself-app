@@ -1,5 +1,92 @@
 .cardItem {
+    position: relative;
     max-width: 352px;
     width: 100%;
     height: 444px;
+
+    .cardRating {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 8px 2px 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        background: #ffffff;
+        border-radius: 2px;
+        color: #000000;
+
+        .cardRatingTitle {
+            font-size: 8px;
+            font-weight: 500;
+            line-height: 8px;
+            font-family: "Montserrat", sans-serif;
+            text-transform: uppercase;
+        }
+
+        .cardRatingInfo {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 24px;
+            font-family: "Montserrat", sans-serif;
+
+            &.newSpecialist {
+                font-size: 16px;
+                line-height: 16px;
+            }
+        }
+    }
+
+    .cardImage {
+        height: 348px;
+        max-width: 352px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .cardTextContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 9px 2px;
+
+        .cardTitle {
+            margin: 0;
+            height: 26px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 26px;
+            font-weight: 500;
+            line-height: 26px;
+            font-family: "Montserrat", sans-serif;
+            text-overflow: ellipsis;
+
+            .cardOnline {
+                margin-left: 6px;
+            }
+        }
+
+        .cardSubjects {
+            display: flex;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 18px;
+            font-family: "Montserrat", sans-serif;
+            font-style: italic;
+            color: #666666;
+
+            .cardSubjectCounts {
+                opacity: 0.5;
+            }
+        }
+
+        .cardOnlineInfo {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 18px;
+            font-family: "Montserrat", sans-serif;
+            color: #cccccc;
+        }
+    }
 }
