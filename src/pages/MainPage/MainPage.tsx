@@ -1,5 +1,5 @@
 import { ActionButton, CardItem, FilterContainer } from '../../components';
-import { useGetSpecialistsQuery } from '../../libs/store/services/safeYourselfApi';
+import { useGetCategoriesQuery, useGetSpecialistsQuery } from '../../libs/store/services/safeYourselfApi';
 import styles from "./MainPage.module.scss";
 import emptyListIcon from "../../assets/empty_list_icon.svg";
 import { useEffect, useState } from 'react';
@@ -27,24 +27,29 @@ export const MainPage = () => {
         isError: isErrorSpecialistData
     } = useGetSpecialistsQuery(params);
 
+    const {
+        data: categories,
+        isLoading: isLoadingCategories,
+        isError: isErrorCategories
+    } = useGetCategoriesQuery();
+
     useEffect(() => {
         if (specialists) {
             dispatch(setAllUsers(specialists))
         }
     }, [dispatch, specialists]);
 
-    const specialistList = specialistsData;
-
-    if (isLoadingSpecialistData) return (<h1>Loading....</h1>)
-    if (isErrorSpecialistData) return (<h1>Error loading data!!!</h1>)
-
+    if (isLoadingSpecialistData || isLoadingCategories) return (<h1>Loading....</h1>)
+    if (isErrorSpecialistData || isErrorCategories) return (<h1>Error loading data!!!</h1>)
     return (
         <div className={styles.mainPageContainer}>
-            <FilterContainer />
-            {specialistList && specialistList.length > 0 ? (
+            <FilterContainer 
+                categories={categories}
+            />
+            {specialistsData && specialistsData.length > 0 ? (
                 <div className={styles.specialistListContainer}>
                     <div className={styles.cardList}>
-                        {specialistList.map((item) => (
+                        {specialistsData.map((item) => (
                             <div key={item.userId}>
                                 <CardItem specialist={item} />
                             </div>

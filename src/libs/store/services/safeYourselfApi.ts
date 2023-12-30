@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ISpecialist } from '../models/getSpecialistList.dto';
 import { GetSpecialistsParams } from '../models/getSpecialistsParams.dto';
+import { GetCategoriesData } from '../models/getCategory.dto';
 
 export const SAFEYOURSELF_API_KEY = "safeYourselfApiKey";
 
@@ -27,8 +28,9 @@ export const safeYourselfApi = createApi({
             },
             transformResponse: (response: any) => response.data.items,
         }),
-        getCategories: builder.query<any, void>({
-            query: () => "/subjects"
+        getCategories: builder.query<GetCategoriesData[], void>({
+            query: () => "/subjects",
+            transformResponse: (response: any) => response.data,
         }),
     }),
 });
