@@ -4,28 +4,53 @@ import styles from "./MainPage.module.scss";
 import emptyListIcon from "../../assets/empty_list_icon.svg";
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setAllUsers } from '../../store/specialistSlice';
+import { setAllUsers, setUsersByFilter } from '../../store/specialistSlice';
+import { useForm } from 'react-hook-form';
+import { TFilterParams } from '../../libs/FilterParams/FilterParamsSex';
+import { GetSpecialistsParams } from '../../libs/store/models/getSpecialistsParams.dto';
+
 
 export const MainPage = () => {
-    const [offset, setOffset] = useState<number>(12);
+    const [offset, setOffset] = useState<number>(0);
     const dispatch = useAppDispatch();
     const specialistsData = useAppSelector((state) => state.specialists.data);
-
+    const { handleSubmit, control, setValue } = useForm<TFilterParams>();
     const limit = 12;
+
+    const defaultParams: GetSpecialistsParams = {
+        limit,
+        offset,
+    };
+    const [queryParams, setQueryParams] = useState<GetSpecialistsParams>(defaultParams)
+
+    const saveData = (form_data: TFilterParams) => {
+        setValue("sex", form_data.sex);
+        setValue("subjectId", form_data.subjectId);
+        setValue("isCertified", form_data.isCertified);
+        setValue("rating", form_data.rating);
+        setQueryParams(prev => ({
+            ...prev,
+            "sex": form_data.sex,
+            "subjectId": form_data.subjectId,
+            "ratingFrom": form_data.rating - 10 || 0,
+            "ratingTo": form_data.rating || 100,
+            "isCertified": true
+        }));
+        if (specialists) {
+            dispatch(setUsersByFilter(specialists))
+        }
+    };
+
 
     const handleMoreButton = () => {
         setOffset((prev) => prev + limit);
     }
-    const params = {
-        limit,
-        offset,
-    };
-
+    
     const {
         data: specialists,
         isLoading: isLoadingSpecialistData,
         isError: isErrorSpecialistData
-    } = useGetSpecialistsQuery(params);
+    } = useGetSpecialistsQuery(queryParams);
 
     const {
         data: categories,
@@ -39,12 +64,16 @@ export const MainPage = () => {
         }
     }, [dispatch, specialists]);
 
-    if (isLoadingSpecialistData || isLoadingCategories) return (<h1>Loading....</h1>)
-    if (isErrorSpecialistData || isErrorCategories) return (<h1>Error loading data!!!</h1>)
+    if (isLoadingSpecialistData || isLoadingCategories) return (<h1>Loading....</h1>);
+    if (isErrorSpecialistData || isErrorCategories) return (<h1>Error loading data!!!</h1>);
+
     return (
         <div className={styles.mainPageContainer}>
-            <FilterContainer 
+            <FilterContainer
                 categories={categories}
+                handleSubmit={handleSubmit}
+                control={control}
+                saveData={saveData}
             />
             {specialistsData && specialistsData.length > 0 ? (
                 <div className={styles.specialistListContainer}>

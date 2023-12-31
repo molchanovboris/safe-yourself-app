@@ -20,12 +20,17 @@ export const specialistSlice = createSlice({
         setAllUsers(state, {payload: data}: PayloadAction<ISpecialist[]>) {
             state.data = [...state.data, ...data];   
             return state;
-        }
+        },
+        setUsersByFilter(state, {payload: data}: PayloadAction<ISpecialist[]>) {
+            state.data = data;   
+            return state;
+        },
     }
 });
 
 export const selectUsers = (state: RootState): SpecialistState => state.specialists;
 
 export const {
-    setAllUsers
+    setAllUsers,
+    setUsersByFilter
 } = specialistSlice.actions;

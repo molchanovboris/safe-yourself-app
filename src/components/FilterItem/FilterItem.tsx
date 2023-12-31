@@ -1,29 +1,29 @@
-import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { Box } from '@mui/material';
 import { FC } from 'react';
 import styles from "./FilterItem.module.scss";
-
-type TItem = {
-    id: number;
-    name: string | number;
-    sequence?: number;
-}
+import { Control, Controller } from "react-hook-form";
+import { TFilterParams } from '../../libs/FilterParams/FilterParamsSex';
 
 interface FilterItemProps {
     title: string;
-    items: TItem[];
+    defaultValue?: number | undefined;
+    control: Control<TFilterParams, any>;
+    children: any;
+    name: "subjectId" | "isCertified" | "sex" | "rating";
 }
 
 export const FilterItem: FC<FilterItemProps> = (props): JSX.Element => {
-    const { title, items } = props
-    const [age, setAge] = React.useState('');
-    console.log('items', items)
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
+    const {
+        title,
+        defaultValue,
+        control,
+        children,
+        name
+    } = props;
+
+
     const checkType = (item: string | number) => {
         if (typeof item === "number") {
             return `до ${item}`
@@ -36,16 +36,25 @@ export const FilterItem: FC<FilterItemProps> = (props): JSX.Element => {
         <Box sx={{ minWidth: 120 }}>
             <p className={styles.filterTitle}>{title}</p>
             <FormControl fullWidth>
-                <Select
+                <Controller
+                    render={({ field }) => (
+                        <Select labelId={title} label={title} {...field}>
+                            {children}
+                        </Select>
+                    )}
+                    name={name}
+                    control={control}
+                    defaultValue={defaultValue}
+                />
+                {/* <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
-                    // onChange={handleChange}
+                    defaultValue={defaultValue}
                 >
                     {items.map((item) => (
-                        <MenuItem key={item.id} value={item.name}>{checkType(item.name)}</MenuItem>
+                        <MenuItem key={item.id} value={item.id}>{checkType(item.name)}</MenuItem>
                     ))}
-                </Select>
+                </Select> */}
             </FormControl>
         </Box>
     )

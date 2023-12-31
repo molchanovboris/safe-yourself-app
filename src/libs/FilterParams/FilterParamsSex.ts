@@ -1,20 +1,26 @@
-export const LEVELS = [
-    {
-        id: 0,
-        name: "Базовый"
-    },
-    {
-        id: 1,
-        name: "Премиум"
-    }
-];
-
 export type TFilterItem = {
     id: number;
-    name: string | number
+    name: string | number;
+}
+
+export type TFilterParams = {
+    subjectId?: number;
+    isCertified?: number;
+    sex: number;
+    rating: number;
+}
+
+export type TQueryParams = {
+    sex?: "0" | "1" | "2",
+    limit: number
+    offset: number;
 }
 
 export const SEX: TFilterItem[] = [
+    {
+        id: 0,
+        name: "Любой"
+    },
     {
         id: 1,
         name: "М"
@@ -75,32 +81,4 @@ export const RAITING: TFilterItem[] = [
     },
 ]
 
-export const PROFESSIONAL_SPECIALITIES = [
-    {
-        id: 1,
-        name: "Консультант"
-    },
-    {
-        id: 2,
-        name: "Сексолог"
-    },
-    {
-        id: 3,
-        name: "Коуч"
-    }
-];
 
-export const FILTER_TYPES = [
-    {
-        id: 0,
-        name: "Все"
-    },
-    {
-        id: 1,
-        name: "Онлайн"
-    },
-    {
-        id: 2,
-        name: "Избранные"
-    }
-];

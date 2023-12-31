@@ -4,7 +4,7 @@ import styles from './ActionButton.module.scss';
 
 interface ActionButtonProps {
     text: string;
-    onClick: () => void;
+    onClick: any;
 }
 
 export const ActionButton: FC<ActionButtonProps> = (props): JSX.Element => {
