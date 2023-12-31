@@ -3,26 +3,27 @@
     flex-direction: column;
     align-items: center;
     gap: 40px;
-
-    .cardList {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 21px;
+    .specialistListContainer {
+        .cardList {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 }
 
-@media (max-width: 1150px) {
+@media (min-width: 740px) {
     .specialistListContainer {
         .cardList {
+            display: grid;
             grid-template-columns: repeat(2, 1fr);
         }
     }
 }
 
-@media (max-width: 740px) {
+@media (min-width: 1150px) {
     .specialistListContainer {
-        .cardList {
-            grid-template-columns: repeat(1, 1fr);
+        .cardList {  
+            grid-template-columns: repeat(3, 1fr);
+            gap: 21px;
         }
     }
 }

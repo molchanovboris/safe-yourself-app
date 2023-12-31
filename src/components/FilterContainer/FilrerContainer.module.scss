@@ -1,28 +1,29 @@
 .filterContainer {
     margin-bottom: 49px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 52px;
 
     .filterContainerButton {
         height: 100%;
         display: flex;
         align-items: flex-end;
+        justify-content: center;
     }
 }
 
-@media (max-width: 1150px) {
+@media (min-width: 740px) {
     .filterContainer {
         grid-template-columns: repeat(2, 1fr);
+
+        .filterContainerButton {
+            justify-content: flex-start;
+        }
     }
 }
 
-@media (max-width: 740px) {
+@media (min-width: 1150px) {
     .filterContainer {
-        grid-template-columns: repeat(1, 1fr);
-
-        .filterContainerButton {
-            justify-content: center;
-        }
+        grid-template-columns: repeat(3, 1fr);
     }
 }
